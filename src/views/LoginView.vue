@@ -1,12 +1,12 @@
 <template>
 <h2>Login Page</h2>
-  <form class="login-form">
+  <form class="login-form" @submit.prevent="getUser()">
     <h3>Login</h3>
     <div class="base">
       <div class="info2">Sign in to continue to Gmail
       </div>
       <div id="mailbox">
-        <input placeholder="Enter your email" type="mail" name="name"
+        <input placeholder="Enter your email" v-model="getUserModal.email" type="mail" name="name"
                style="width:270px; height:42px; border: solid 1px #c2c4c6;
 	font-size:16px; padding-left:8px;" />
         <div><input type="submit" id="button2" value="login"/></div>
@@ -20,8 +20,20 @@
 </template>
 
 <script>
+import AllRequest from "@/model/request/allRequest";
 export default {
-  name: "LoginView"
+  name: "LoginView",
+  data(){
+    return {
+      getUserModal: AllRequest.getUser
+    }
+  },
+
+  methods:{
+    getUser(){
+      this.$store.dispatch("getUser", this.getUserModal, {root:false})
+    }
+  }
 }
 </script>
 

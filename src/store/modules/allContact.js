@@ -51,6 +51,45 @@ const actions = {
                 console.log(responseData.message)
             }
         })
+    },
+    getUser: ({commit}, payload=allRequest.getUser) => {
+        return contactAppService.getUser(payload).then(response => {
+            let dataResponse = response.data
+            if (dataResponse.code == "00"){
+                swal({text:dataResponse.message, icon: "success"}).then(() => {
+                    commit()
+                })
+            }else{
+                swal({text:dataResponse.message, icon: "error"})
+            }
+        })
+    },
+    addContact: ({commit}, payload=allRequest.addContact) => {
+        return contactAppService.addContact(payload).then(response => {
+            let responseContact = response.data
+            if (responseContact.code == '00'){
+                swal({text:responseContact.message, icon: "success"}).then(()=>{
+                    commit()
+                })
+            }else {
+                swal({text:responseContact.message, icon:"error"})
+                console.log(responseContact.message)
+            }
+
+        })
+    },
+    getContact: ({commit}, payload = allRequest.getContact) => {
+        return contactAppService.getContact(payload).then(response =>{
+            let responseGet = response.data
+            if (responseGet.code == "00"){
+                swal({text:responseGet.message, icon:"success"}).then(() =>{
+                    commit()
+                })
+            }else {
+                swal({text:responseGet.message, icon:"error"})
+                console.log(responseGet.message)
+            }
+        })
     }
 }
 
